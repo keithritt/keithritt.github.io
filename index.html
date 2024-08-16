@@ -1,1 +1,224 @@
-Hello World
+<!doctype html>
+<html lang="en" data-bs-theme="auto">
+  <head><script src="bootstrap/assets/js/color-modes.js"></script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.122.0">
+    <title>UNCG Wrestling Reunion</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/cheatsheet/">
+
+    
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+
+<link href="bootstrap/assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .b-example-divider {
+        width: 100%;
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+      }
+
+      .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+      }
+
+      .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+      }
+
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
+
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .btn-bd-primary {
+        --bd-violet-bg: #712cf9;
+        --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
+
+        --bs-btn-font-weight: 600;
+        --bs-btn-color: var(--bs-white);
+        --bs-btn-bg: var(--bd-violet-bg);
+        --bs-btn-border-color: var(--bd-violet-bg);
+        --bs-btn-hover-color: var(--bs-white);
+        --bs-btn-hover-bg: #6528e0;
+        --bs-btn-hover-border-color: #6528e0;
+        --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+        --bs-btn-active-color: var(--bs-btn-hover-color);
+        --bs-btn-active-bg: #5a23c8;
+        --bs-btn-active-border-color: #5a23c8;
+      }
+
+      .bd-mode-toggle {
+        z-index: 1500;
+      }
+
+      .bd-mode-toggle .dropdown-menu .active .bi {
+        display: block !important;
+      }
+    </style>
+
+    
+    <!-- Custom styles for this template -->
+    <link href="bootstrap/cheatsheet/cheatsheet.css" rel="stylesheet">
+  </head>
+  <body class="bg-body-tertiary">
+
+
+    
+
+<aside class="bd-aside sticky-xl-top text-body-secondary align-self-start mb-3 mb-xl-5 px-2">
+  <nav class="small" id="toc">
+    <ul class="list-unstyled">
+        <li><a class="d-inline-flex align-items-center rounded text-decoration-none" href="#overview">Overview</a></li> 
+        <li><a class="d-inline-flex align-items-center rounded text-decoration-none" href="#schedule">Event Schedule</a></li> 
+        <li class="my-2">
+            <button type="button" class="btn d-inline-flex align-items-center collapsed border-0" data-bs-toggle="collapse" aria-expanded="false" data-bs-target="#guest-list-collapse" aria-controls="guest-list-collapse">
+                Guest List
+            </button>
+            <ul class="list-unstyled ps-3 collapse" id="guest-list-collapse">
+                <li><a class="d-inline-flex align-items-center rounded text-decoration-none" href="#attending">Attending</a></li>
+                <li><a class="d-inline-flex align-items-center rounded text-decoration-none" href="#not-attending">Not Attending</a></li>
+                <li><a class="d-inline-flex align-items-center rounded text-decoration-none" href="#undecided">Undecided</a></li>
+                <li><a class="d-inline-flex align-items-center rounded text-decoration-none" href="#uncontacted">Uncontacted</a></li>
+            </ul>
+          </li>        
+      <li class="my-2">
+        <button type="button" class="btn d-inline-flex align-items-center collapsed border-0" data-bs-toggle="collapse" aria-expanded="false" data-bs-target="#links-collapse" aria-controls="links-collapse">Links</button>
+        <ul class="list-unstyled ps-3 collapse" id="links-collapse">
+          <li><a class="d-inline-flex align-items-center rounded text-decoration-none" target="_" href="https://forms.office.com/r/cVnjDn7w4z">Official UNCG RSVP Form</a></li>
+          <li><a class="d-inline-flex align-items-center rounded text-decoration-none" target="_" href="https://uncgspartans.com/news/2024/6/5/general-uncg-to-induct-two-coaches-and-five-athletes-into-athletics-hall-of-fame.aspx">Hall of Fame Official Release</a></li>
+          
+          <li><a class="d-inline-flex align-items-center rounded text-decoration-none" target="_" href="https://alumni.uncg.edu/homecoming/">Homecoming Website</a></li>
+          <li><a class="d-inline-flex align-items-center rounded text-decoration-none" target="_" href="https://www.facebook.com/events/841128197899763">Facebook Event Page</a></li> 
+        </ul>
+      </li>
+             
+    </ul>
+  </nav>
+</aside>
+<div class="bd-cheatsheet container-fluid bg-body">
+  <section id="overview">
+    <h2 class="sticky-xl-top fw-bold pt-3 pt-xl-5 pb-2 pb-xl-3"><!--Overview--></h2>
+
+    <article class="my-3" id="typography">
+      <div class="bd-heading sticky-xl-top align-self-start mt-5 mb-3 mt-xl-0 mb-xl-2">
+        <!--<h3>Typography</h3>
+        <a class="d-flex align-items-center" href="bootstrap/content/typography/">Documentationzz</a>
+      -->
+      </div>
+
+      <div>
+        <div class="bd-example-snippet bd-code-snippet">
+            <div class="bd-example m-0 border-0">                
+                    <p class="display-1" style="font-weight:bold">UNCG Wrestling Reunion</p>                    
+            </div>
+        </div>
+
+        <div class="bd-example-snippet bd-code-snippet">
+          <div class="bd-example m-0 border-0">            
+                <p class="h1">Friday October 4th - Saturday October 5th</p>
+                <p class="h2">Greensboro, NC</p>                
+          </div>
+        </div>   
+
+
+        <div class="bd-example-snippet bd-code-snippet">
+            <div class="bd-example m-0 border-0">            
+                <p class="lead">
+                Join us this October to celebrate the UNCG wrestling program and meet up with fellow alumns.
+                </p>                
+            </div>
+        </div>
+
+
+            <div class="bd-example-snippet bd-code-snippet">
+              <div class="bd-example m-0 border-0">            
+                <p>The reunion weekend will coinside with the UNCG Homecoming and 
+                  the induction of Joe Lowe into the Hall of Fame.
+                
+                
+                </p>
+
+                <br><br><br>
+                <article class="my-3" id="schedule">
+                <p class="h2">Event Schedule:</p>
+              </article>
+                <br><br>
+                <p class="h3">Friday: 4:00 PM</p>
+                <p>Meet at <a href="https://oldtowndraught.com/" target="_">Old Town</a> for food and drinks. 
+                  Afterwards, we can hop around to other places, potentially:
+                  Corner Bar, Jake's Billiards, Suds & Duds.
+                </p>
+                <br>
+                <p class="h3">Saturday: 9:30 AM - 11:00 AM</p>
+                <p><a href="https://uncgspartans.com/news/2024/6/5/general-uncg-to-induct-two-coaches-and-five-athletes-into-athletics-hall-of-fame.aspx" target="_">
+                  Hall of Fame Induction Ceremony</a> in the Cone Ballroom on campus. Joe Lowe, along with 6 others will be honored.
+                  All UNCG wrestling alumni are invited, tickets are $50, brunch is included. Reach out to Danielle Sandridge at 
+                  <a href="mailto:dwsandridge@uncg.edu">dwsandridge@uncg.edu</a> if you have any questions.
+                  <br>RSVP Deadline: September 24th.
+                </p>   
+                <br>           
+                <p class="h3">Saturday: 2:00 PM - 3:30 PM</p>
+                <p>Official UNCG Alumni Reunion in Flemming Gym. Our conference championship banners will be put back up. 
+                  The athletic director Brian Mackin will give a speech and fellow alumn will have an opportunity to speak.
+                  Drinks and Snacks will be provided, friends and families are welcome.
+                </p>
+                <br> 
+                <p class="h3">Saturday: 4:00 PM</p>
+                <p>Again, meet at <a href="https://oldtowndraught.com/" target="_">Old Town</a> for food and drinks. 
+                  Afterwards, we can hop around downtown Greensboro, potentially:
+                  Boxcar, South End Brewery, Natty Greene's, Stumble Stilkins, One Thirteen Brewhouse
+                </p>
+                <br><br>                
+            </div>
+        </div>
+    </article>
+
+
+      </div>
+
+  </section>
+</div>
+<script src="bootstrap/assets/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="cheatsheet.js"></script></body>
+</html>
