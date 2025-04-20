@@ -1,0 +1,6 @@
+{
+    "name": "Stable USD Test",
+    "symbol": "sUSD",
+    "description": "A stablecoin pegged to the US dollar, used for testing purposes.",
+    "image": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v/logo.png"
+}
