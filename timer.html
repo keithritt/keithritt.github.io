@@ -25,23 +25,26 @@
         h1 {
             font-size: 3em;
             margin: 20px 0;
-            color: #333;
+            color: #000;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.3);
         }
 
         .timer-display {
             font-size: 8em;
             font-weight: bold;
             margin: 20px 0;
-            color: #333;
+            color: #000;
             font-family: 'Courier New', monospace;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.3);
         }
 
         .lap-timer {
             font-size: 3em;
             font-weight: bold;
             margin: 20px 0;
-            color: #666;
+            color: #000;
             font-family: 'Courier New', monospace;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.3);
         }
 
         .controls {
@@ -93,37 +96,37 @@
         let lapTimeElapsed = 0;
         let timerInterval = null;
 
-        // Interval configuration
-        const intervals = [
-            { minute: 25, name: "Rest 1", color: "#FFFF00" },      // Yellow
-            { minute: 24, name: "Interval 1", color: "#00FF00" },  // Green
-            { minute: 23, name: "Interval 1", color: "#00FF00" },
-            { minute: 22, name: "Interval 1", color: "#00FF00" },
-            { minute: 21, name: "Interval 1", color: "#00FF00" },
-            { minute: 20, name: "Rest 2", color: "#FFFF00" },
-            { minute: 19, name: "Rest 2", color: "#FFFF00" },
-            { minute: 18, name: "Interval 2", color: "#00FF00" },
-            { minute: 17, name: "Interval 2", color: "#00FF00" },
-            { minute: 16, name: "Interval 2", color: "#00FF00" },
-            { minute: 15, name: "Interval 2", color: "#00FF00" },
-            { minute: 14, name: "Rest 3", color: "#FFFF00" },
-            { minute: 13, name: "Rest 3", color: "#FFFF00" },
-            { minute: 12, name: "Interval 3", color: "#00FF00" },
-            { minute: 11, name: "Interval 3", color: "#00FF00" },
-            { minute: 10, name: "Interval 3", color: "#00FF00" },
-            { minute: 9, name: "Interval 3", color: "#00FF00" },
-            { minute: 8, name: "Rest 4", color: "#FFFF00" },
-            { minute: 7, name: "Rest 4", color: "#FFFF00" },
-            { minute: 6, name: "Interval 4", color: "#00FF00" },
-            { minute: 5, name: "Interval 4", color: "#00FF00" },
-            { minute: 4, name: "Interval 4", color: "#00FF00" },
-            { minute: 3, name: "Interval 4", color: "#00FF00" },
-            { minute: 2, name: "Rest 5", color: "#FFFF00" },
-            { minute: 1, name: "Rest 5", color: "#FFFF00" },
-            { minute: 0, name: "Complete", color: "#FF0000" }      // Red
-        ];
+        // Interval configuration - using Map for O(1) lookup
+        const intervalMap = new Map([
+            [25, { name: "Rest 1", color: "#FFFF00" }],
+            [24, { name: "Interval 1", color: "#00FF00" }],
+            [23, { name: "Interval 1", color: "#00FF00" }],
+            [22, { name: "Interval 1", color: "#00FF00" }],
+            [21, { name: "Interval 1", color: "#00FF00" }],
+            [20, { name: "Rest 2", color: "#FFFF00" }],
+            [19, { name: "Rest 2", color: "#FFFF00" }],
+            [18, { name: "Interval 2", color: "#00FF00" }],
+            [17, { name: "Interval 2", color: "#00FF00" }],
+            [16, { name: "Interval 2", color: "#00FF00" }],
+            [15, { name: "Interval 2", color: "#00FF00" }],
+            [14, { name: "Rest 3", color: "#FFFF00" }],
+            [13, { name: "Rest 3", color: "#FFFF00" }],
+            [12, { name: "Interval 3", color: "#00FF00" }],
+            [11, { name: "Interval 3", color: "#00FF00" }],
+            [10, { name: "Interval 3", color: "#00FF00" }],
+            [9, { name: "Interval 3", color: "#00FF00" }],
+            [8, { name: "Rest 4", color: "#FFFF00" }],
+            [7, { name: "Rest 4", color: "#FFFF00" }],
+            [6, { name: "Interval 4", color: "#00FF00" }],
+            [5, { name: "Interval 4", color: "#00FF00" }],
+            [4, { name: "Interval 4", color: "#00FF00" }],
+            [3, { name: "Interval 4", color: "#00FF00" }],
+            [2, { name: "Rest 5", color: "#FFFF00" }],
+            [1, { name: "Rest 5", color: "#FFFF00" }],
+            [0, { name: "Complete", color: "#FF0000" }]
+        ]);
 
-        let currentIntervalIndex = 0;
+        let currentInterval = intervalMap.get(25);
 
         // Format time as MM:SS or M:SS
         function formatTime(seconds) {
@@ -145,22 +148,18 @@
             // Check if this time matches an interval transition point
             // Intervals change at X:00 (e.g., 24:00, 23:00, etc.)
             if (mainTimeRemaining % 60 === 0) {
-                // Find the interval for this minute
-                for (let i = 0; i < intervals.length; i++) {
-                    if (intervals[i].minute === currentMinute) {
-                        currentIntervalIndex = i;
-                        updateInterval();
-                        break;
-                    }
+                const interval = intervalMap.get(currentMinute);
+                if (interval) {
+                    currentInterval = interval;
+                    updateInterval();
                 }
             }
         }
 
         // Update interval name and background color
         function updateInterval() {
-            const interval = intervals[currentIntervalIndex];
-            document.getElementById('intervalName').textContent = interval.name;
-            document.body.style.backgroundColor = interval.color;
+            document.getElementById('intervalName').textContent = currentInterval.name;
+            document.body.style.backgroundColor = currentInterval.color;
             
             // Reset lap timer
             lapTimeElapsed = 0;
