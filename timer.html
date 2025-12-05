@@ -126,7 +126,7 @@
             [0, { name: "Complete", color: "#FF0000" }]
         ]);
 
-        let currentInterval = intervalMap.get(25);
+        let currentInterval = intervalMap.get(Math.floor(mainTimeRemaining / 60));
 
         // Format time as MM:SS or M:SS
         function formatTime(seconds) {
