@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interval Training Timer</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            transition: background-color 0.5s ease;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin: 20px 0;
+            color: #000;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.3);
+        }
+
+        .timer-display {
+            font-size: 8em;
+            font-weight: bold;
+            margin: 20px 0;
+            color: #000;
+            font-family: 'Courier New', monospace;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.3);
+        }
+
+        .lap-timer {
+            font-size: 3em;
+            font-weight: bold;
+            margin: 20px 0;
+            color: #000;
+            font-family: 'Courier New', monospace;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.3);
+        }
+
+        .controls {
+            margin: 30px 0;
+        }
+
+        button {
+            font-size: 1.5em;
+            padding: 15px 40px;
+            margin: 0 10px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        .label {
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="intervalName">Rest 1</h1>
+        <div class="timer-display" id="mainTimer">25:00</div>
+        <div class="label">Lap Time</div>
+        <div class="lap-timer" id="lapTimer">0:00</div>
+        <div class="controls">
+            <button id="playPauseBtn" onclick="toggleTimer()">Play</button>
+        </div>
+    </div>
+
+    <script>
+        // Timer state
+        let isRunning = false;
+        let mainTimeRemaining = 25 * 60; // 25 minutes in seconds
+        let lapTimeElapsed = 0;
+        let timerInterval = null;
+
+        // Interval configuration - using Map for O(1) lookup
+        const intervalMap = new Map([
+            [25, { name: "Rest 1", color: "#FFFF00" }],
+            [24, { name: "Interval 1", color: "#00FF00" }],
+            [23, { name: "Interval 1", color: "#00FF00" }],
+            [22, { name: "Interval 1", color: "#00FF00" }],
+            [21, { name: "Interval 1", color: "#00FF00" }],
+            [20, { name: "Rest 2", color: "#FFFF00" }],
+            [19, { name: "Rest 2", color: "#FFFF00" }],
+            [18, { name: "Interval 2", color: "#00FF00" }],
+            [17, { name: "Interval 2", color: "#00FF00" }],
+            [16, { name: "Interval 2", color: "#00FF00" }],
+            [15, { name: "Interval 2", color: "#00FF00" }],
+            [14, { name: "Rest 3", color: "#FFFF00" }],
+            [13, { name: "Rest 3", color: "#FFFF00" }],
+            [12, { name: "Interval 3", color: "#00FF00" }],
+            [11, { name: "Interval 3", color: "#00FF00" }],
+            [10, { name: "Interval 3", color: "#00FF00" }],
+            [9, { name: "Interval 3", color: "#00FF00" }],
+            [8, { name: "Rest 4", color: "#FFFF00" }],
+            [7, { name: "Rest 4", color: "#FFFF00" }],
+            [6, { name: "Interval 4", color: "#00FF00" }],
+            [5, { name: "Interval 4", color: "#00FF00" }],
+            [4, { name: "Interval 4", color: "#00FF00" }],
+            [3, { name: "Interval 4", color: "#00FF00" }],
+            [2, { name: "Rest 5", color: "#FFFF00" }],
+            [1, { name: "Rest 5", color: "#FFFF00" }],
+            [0, { name: "Complete", color: "#FF0000" }]
+        ]);
+
+        let currentInterval = intervalMap.get(Math.floor(mainTimeRemaining / 60));
+
+        // Format time as MM:SS or M:SS
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        // Update the display
+        function updateDisplay() {
+            document.getElementById('mainTimer').textContent = formatTime(mainTimeRemaining);
+            document.getElementById('lapTimer').textContent = formatTime(lapTimeElapsed);
+        }
+
+        // Check if we need to update the interval
+        function checkInterval() {
+            const currentMinute = Math.floor(mainTimeRemaining / 60);
+            
+            // Check if this time matches an interval transition point
+            // Intervals change at X:00 (e.g., 24:00, 23:00, etc.)
+            if (mainTimeRemaining % 60 === 0) {
+                const interval = intervalMap.get(currentMinute);
+                if (interval) {
+                    currentInterval = interval;
+                    updateInterval();
+                }
+            }
+        }
+
+        // Update interval name and background color
+        function updateInterval() {
+            document.getElementById('intervalName').textContent = currentInterval.name;
+            document.body.style.backgroundColor = currentInterval.color;
+            
+            // Reset lap timer
+            lapTimeElapsed = 0;
+        }
+
+        // Main timer tick function
+        function tick() {
+            if (mainTimeRemaining > 0) {
+                mainTimeRemaining--;
+                lapTimeElapsed++;
+                checkInterval();
+                updateDisplay();
+            } else {
+                // Timer completed
+                stopTimer();
+            }
+        }
+
+        // Toggle play/pause
+        function toggleTimer() {
+            if (isRunning) {
+                pauseTimer();
+            } else {
+                startTimer();
+            }
+        }
+
+        // Start the timer
+        function startTimer() {
+            if (!isRunning) {
+                isRunning = true;
+                document.getElementById('playPauseBtn').textContent = 'Pause';
+                timerInterval = setInterval(tick, 1000);
+            }
+        }
+
+        // Pause the timer
+        function pauseTimer() {
+            if (isRunning) {
+                isRunning = false;
+                document.getElementById('playPauseBtn').textContent = 'Play';
+                clearInterval(timerInterval);
+            }
+        }
+
+        // Stop the timer
+        function stopTimer() {
+            isRunning = false;
+            document.getElementById('playPauseBtn').textContent = 'Play';
+            clearInterval(timerInterval);
+        }
+
+        // Initialize the page
+        function init() {
+            updateDisplay();
+            updateInterval();
+        }
+
+        // Run initialization when page loads
+        init();
+    </script>
+</body>
+</html>
